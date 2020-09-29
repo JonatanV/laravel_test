@@ -6,8 +6,15 @@
     <title>Document</title>
 </head>
 <body>
+    <style>
+        img{
+            width: 470px;
+            height: 672px;
+        }
+    </style>
     <h1>
-        {{ $name }}
+        Vem är du själv då {{ $name }}?
     </h1>
+    <img src="{{URL::asset('img/TORKEL.png')}}" alt="">
 </body>
 </html>

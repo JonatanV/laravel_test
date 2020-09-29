@@ -3,22 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Post;
 
 class PostsController extends Controller
 {
-    public function show($post)
+    public function show($slug)
     {
-        $posts = [
-            'my-first-post' => 'First',
-            'my-second-post' => 'second'
-        ];
-
-        if (!array_key_exists($post, $posts)) {
-            abort(404, 'Sorry unavailable post:');
-        }
-
         return view('post', [
-            'post' => $posts[$post]
+            'post' => Post::where('slug', $slug)->firstOrFail()
         ]);
     }
 }
