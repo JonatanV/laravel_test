@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\ArticlesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
+
+use function PHPUnit\Framework\returnValueMap;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +35,16 @@ Route::get('/test', function() {
 
 
 Route::get('/posts/{post}', [PostsController::class, 'show']);
+
+Route::get('/contact', function() {
+    return view('contact');
+});
+Route::get('/about', function(){
+    return view('about', [
+        'articles' => App\Models\Article::latest()->get()
+    ]);
+
+});
+
+Route::get('/articles', [ArticlesController::class, 'index']);
+    
