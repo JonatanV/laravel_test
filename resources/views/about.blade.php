@@ -14,7 +14,7 @@
 			<p>Donec condimentum, urna non molestie semper, ligula enim ornare nibh, quis laoreet eros quam eget ante. Aliquam libero. Vivamus nisl nibh, iaculis vitae, viverra sit amet, ullamcorper vitae, turpis. Aliquam erat volutpat. Vestibulum dui sem, pulvinar sed, imperdiet nec, iaculis nec, leo. Fusce odio. Etiam arcu dui, faucibus eget, placerat vel, sodales eget, orci. Donec ornare neque ac sem. Mauris aliquet. Aliquam sem leo, vulputate sed, convallis at, ultricies quis, justo. Donec nonummy magna quis risus. Quisque eleifend. Phasellus tempor vehicula justo.</p>
 		</div>
 		<div id="sidebar">
-			<ul class="style1">2
+			<ul class="style1">
 				@foreach ($articles as $article)
 				<li class="first">
 				<h3>
@@ -24,14 +24,6 @@
 				</li>
 				<li>
 				@endforeach
-					
-					<h3>Sagittis diam dolor sit amet</h3>
-					<p><a href="#">In posuere eleifend odio. Quisque semper augue mattis wisi. Pellentesque viverra vulputate enim. Aliquam erat volutpat.</a></p>
-				</li>
-				<li>
-					<h3>Maecenas ac quam risus</h3>
-					<p><a href="#">In posuere eleifend odio. Quisque semper augue mattis wisi. Pellentesque viverra vulputate enim. Aliquam erat volutpat.</a></p>
-				</li>
 			</ul>
 			<div id="stwo-col">
 				<div class="sbox1">
