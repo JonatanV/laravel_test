@@ -49,7 +49,7 @@ Route::get('/about', function(){
     Route::post('/articles', [ArticlesController::class, 'store']);
     Route::get('/articles/create', [ArticlesController::class , 'create']);
     Route::get('/articles/{article}/edit', [ArticlesController::class, 'edit']);
-    Route::get('/articles/{article}', [ArticlesController::class, 'show']);
+    Route::get('/articles/{article}', [ArticlesController::class, 'show'])->name('articles.show');
     Route::put('/articles/{article}', [ArticlesController::class, 'update']);
     Route::delete('/articles/{article}', [ArticlesController::class, 'delete']);
 

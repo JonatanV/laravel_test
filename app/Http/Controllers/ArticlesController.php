@@ -15,13 +15,12 @@ class ArticlesController extends Controller
         return view('articles.index', ['articles' => $articles]);
     }
 
-    public function show($id)
+    public function show(Article $article)
     {
         // Show a single resource
 
-        $article = Article::find($id);
-
-        return view('articles.show',    ['article' => $article]);
+         Article::where('id', 1)->first();
+         return view('articles.show',    ['article' => $article]);
     }
 
     public function create()
@@ -34,51 +33,37 @@ class ArticlesController extends Controller
     public function store()
     {
         // Persists the create form
-        request()->validate([
-            'title' => 'requiered',
-            'excerpt' => 'requiered',
-            'body' => 'requiered'
-        ]);
-
-        $article = new Article();
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
-        $article->save();
+        Article::create($this->validateArticle());
 
         return redirect('/articles');
     }
 
-    public function edit($id)
+    public function edit(Article $article)
     {
         // Shows a view to edit an existing resource
-        $article = Article::find($id);
+        
 
         return view('articles.edit', compact('article'));
     }
 
-    public function update($id)
+    public function update(Article $article)
     {
         // Persists the edited resource
-        request()->validate([
-            'title' => 'requiered',
-            'excerpt' => 'requiered',
-            'body' => 'requiered'
-    ]);
+        $article->update($this->validateArticle());
 
-        $article = Article::find($id);
-
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
-
-        $article->save();
-
-        return redirect('/articles/' . $article->id);
+            return redirect(route('articles.show', $article));
     }
 
     public function destroy()
     {
         // Delete the rresource
+    }
+    protected function validateArticle()
+    {
+        return request()->validate([
+            'title' => 'required',
+            'excerpt' => 'required',
+            'body' => 'required'
+        ]);
     }
 }
