@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    @foreach ($articles as $article)
+    @forelse ($articles as $article)
 
     <div id="wrapper">
         <div id="page" class="container">
@@ -25,8 +25,10 @@
                 <p>{{ $article->excerpt }}</p>
 
             </div>
-
-            @endforeach
         </div>
+        @empty
+        <p>
+            No relevant articles yet.
+            @endforelse
 
         @endsection

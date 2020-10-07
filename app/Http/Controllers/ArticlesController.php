@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Tag;
 
 class ArticlesController extends Controller
 {
     public function index()
     {
         //renders a list of a source
-        $articles = Article::latest()->get();
+        if (request('tag')) {
+            $articles = Tag::where('name', request('tag'))->firstOrFail()->articles;
+        } else {
+
+            $articles = Article::latest()->get();
+        }
+
 
         return view('articles.index', ['articles' => $articles]);
     }
@@ -19,21 +26,31 @@ class ArticlesController extends Controller
     {
         // Show a single resource
 
-         Article::where('id', 1)->first();
-         return view('articles.show',    ['article' => $article]);
+        Article::where('id', 1)->first();
+        return view('articles.show',    ['article' => $article]);
     }
 
     public function create()
     {
         // Shows a view to create a new resource
-
-        return view('articles.create');
+        Tag::all();
+        return view('articles.create', [
+            'tags' => Tag::all()
+        ]);
     }
 
     public function store()
     {
         // Persists the create form
-        Article::create($this->validateArticle());
+        $this->validateArticle();
+
+        $article = new Article(request(['title', 'excerpt', 'body']));
+        $article->user_id = 1;
+        $article->save();
+
+        if (request()->has('tags')) {
+            $article->tags()->attach(request('tags'));
+        } 
 
         return redirect('/articles');
     }
@@ -41,7 +58,7 @@ class ArticlesController extends Controller
     public function edit(Article $article)
     {
         // Shows a view to edit an existing resource
-        
+
 
         return view('articles.edit', compact('article'));
     }
@@ -51,7 +68,7 @@ class ArticlesController extends Controller
         // Persists the edited resource
         $article->update($this->validateArticle());
 
-            return redirect(route('articles.show', $article));
+        return redirect(route('articles.show', $article));
     }
 
     public function destroy()
@@ -63,7 +80,8 @@ class ArticlesController extends Controller
         return request()->validate([
             'title' => 'required',
             'excerpt' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'tags' => 'exists:tags,id'
         ]);
     }
 }
